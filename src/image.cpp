@@ -77,7 +77,20 @@ void image::load(const std::string& filename){
 
 
 		image::data.reset(new unsigned char[width * height]);
-		ifs.read(data, width * height));
+		ifs.read((char*)data.get(), width * height);
 	}
 
+	std::cout << width << std::endl;
+	std::cout << height << std::endl;
+
+}
+
+image::image(){
+	height = 0;
+	width = 0;
+	data = nullptr;
+}
+
+image::~image(){
+	data.reset();
 }
