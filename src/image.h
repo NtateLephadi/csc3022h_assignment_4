@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 #ifndef IMAGE_H_
 #define IMAGE_H_
@@ -26,9 +27,9 @@ public:
 
 	image(image&& lhs);
 
-	void load(std::string filename);
+	void load(const std::string& filename);
 
-	void save(std::string filename);
+	void save(const std::string& filename);
 
 	image& operator=(const image& lhs);
 

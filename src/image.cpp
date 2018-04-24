@@ -48,3 +48,36 @@ image::image_iterator image::end() const{
 	unsigned char* endptr = &data[image::height * image::width - 1];
 	return image::image_iterator(++endptr);
 }
+
+void image::load(const std::string& filename){
+	std::ifstream ifs(filename, std::ios::binary);
+
+	if(!ifs){
+		std::cerr << "File open failed!" << std::endl;
+	}
+
+	std::string line;
+	std::vector<std::string> line_vector;
+	int height, width;
+
+	while(!ifs.eof()){
+
+		while(ifs.get() != '255'){
+				getline(ifs, line, '\n');
+				line_vector.push_back(line);
+		}
+
+		width = stoi(line_vector[line_vector.size() - 3]);
+		height = stoi(line_vector[line_vector.size() - 2]);
+
+		getline(ifs, line, '\n');
+		line_vector.push_back(line);
+
+		skipws(ifs);
+
+
+		image::data.reset(new unsigned char[width * height]);
+		ifs.read(data, width * height));
+	}
+
+}
