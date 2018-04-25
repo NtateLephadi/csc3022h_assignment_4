@@ -112,14 +112,15 @@ image::~image(){
 }
 
 image::image(const image& rhs){
+
 	this->height = rhs.height;
 	this->width = rhs.width;
 
 	data.reset(new unsigned char [width*height]);
+
 	image::image_iterator beg = this->begin(), end = this->end();
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
 	while (beg != end) {
-		std::cout<<int(*inStart)<<std::endl;
 
 		*beg = *inStart;
 		++beg;
@@ -127,6 +128,65 @@ image::image(const image& rhs){
 	}
 }
 
-std::ifstream& operator>>(std::ifstream&, image& rhs){
+image::image(image&& rhs){
 
+	this->height = rhs.height;
+	this->width = rhs.width;
+
+	data.reset(new unsigned char [width*height]);
+
+	image::image_iterator beg = this->begin(), end = this->end();
+	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
+	while (beg != end) {
+
+		*beg = *inStart;
+		++beg;
+		++inStart;
+	}
+
+	rhs.height = 0;
+	rhs.width = 0;
+	data = nullptr;
+}
+
+image& image::operator=(const image& rhs){
+
+		this->height = rhs.height;
+		this->width = rhs.width;
+
+		data.reset(new unsigned char [width*height]);
+
+		image::image_iterator beg = this->begin(), end = this->end();
+		image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
+		while (beg != end) {
+
+			*beg = *inStart;
+			++beg;
+			++inStart;
+		}
+
+		return *this;
+}
+
+image& image::operator=(image&& rhs){
+
+		this->height = rhs.height;
+		this->width = rhs.width;
+
+		data.reset(new unsigned char [width*height]);
+
+		image::image_iterator beg = this->begin(), end = this->end();
+		image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
+		while (beg != end) {
+
+			*beg = *inStart;
+			++beg;
+			++inStart;
+		}
+
+		rhs.height = 0;
+		rhs.width = 0;
+		data = nullptr;
+
+		return *this;
 }

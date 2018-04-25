@@ -23,7 +23,7 @@ public:
 
 	image(const image& rhs);
 
-	image(image&& lhs);
+	image(image&& rhs);
 
 	void load(const std::string& filename);
 
@@ -31,13 +31,13 @@ public:
 
 	image& operator=(const image& lhs);
 
-	image& operator=(image&& lhs);
+	image& operator=(image&& rhs);
 
-	image& operator+(const image& lhs);
+	image& operator+(const image& rhs);
 
-	image& operator-(const image& lhs);
+	image& operator-(const image& rhs);
 
-	image& operator/(const image& lhs);
+	image& operator/(const image& rhs);
 
 	image operator!();
 
