@@ -49,19 +49,6 @@ image::image_iterator image::end() const{
 	return image::image_iterator(++endptr);
 }
 
-// void image::load(const std::string& filename){
-//
-// 	std::ifstream ifs(filename, std::ios::binary);
-//
-// 	if(!ifs){
-// 		std::cerr << "File open failed!" << std::endl;
-// 	}
-// 	else{
-// 		ifs >> *this;
-// 		ifs.close();
-// 	}
-// }
-
 void image::save(const std::string& filename){
 	std::ofstream ofs(filename, std::ios::binary);
 
@@ -270,7 +257,7 @@ image& image::operator*(const int threshold){
 	return temp;
 }
 
-std::ifstream& operator>>(std::ifstream ifs, image& rhs){
+std::ifstream& operator>>(std::ifstream& ifs, image& rhs){
 
 	std::string line;
 	std::vector<std::string> line_vector;
@@ -299,5 +286,18 @@ std::ifstream& operator>>(std::ifstream ifs, image& rhs){
 		ifs.read((char*)&image_data[0], rhs.height * rhs.width);
 		rhs.data.reset(image_data);
 		return ifs;
+	}
+}
+
+void image::load(const std::string& filename){
+
+	std::ifstream ifs(filename, std::ios::binary);
+
+	if(!ifs){
+		std::cerr << "File open failed!" << std::endl;
+	}
+	else{
+		ifs >> *this;
+		ifs.close();
 	}
 }

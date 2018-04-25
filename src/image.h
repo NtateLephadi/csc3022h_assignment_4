@@ -43,7 +43,7 @@ public:
 
 	image& operator*(const int threshold);
 
-	friend std::ifstream& operator>>(std::ifstream ifs, image& rhs);
+	friend std::ifstream& operator>>(std::ifstream& ifs, image& rhs);
 
 	friend std::ofstream& operator<<(std::ofstream& ofs, const image& rhs);
 
