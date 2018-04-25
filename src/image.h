@@ -47,9 +47,9 @@ public:
 
 	bool operator==(image& lhs);
 
-	friend void operator>>(const std::string filename, image& rhs);
+	friend std::ifstream& operator>>(const std::ifstream&, image& rhs);
 
-	friend void operator<<(const std::string filename, image& rhs);
+	friend std::ofstream& operator<<(std::ofstream&, const image& rhs);
 
 	class image_iterator{
 
@@ -83,6 +83,10 @@ public:
 
 	image_iterator begin() const;
 
+
 };
+
+
+
 
 #endif

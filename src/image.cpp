@@ -50,38 +50,47 @@ image::image_iterator image::end() const{
 }
 
 void image::load(const std::string& filename){
+
 	std::ifstream ifs(filename, std::ios::binary);
+
 
 	if(!ifs){
 		std::cerr << "File open failed!" << std::endl;
 	}
 
-	std::string line;
-	std::vector<std::string> line_vector;
-	int height, width;
+	else{
+		std::string line;
+		std::vector<std::string> line_vector;
 
-	while(!ifs.eof()){
-
-		while(ifs.get() != '255'){
-				getline(ifs, line, '\n');
+		getline(ifs, line);
+		if(line.compare("P5") == 0){
+			getline(ifs, line);
+			while(line.compare("255") != 0){
 				line_vector.push_back(line);
+				getline(ifs, line);
+			}
 		}
 
-		width = stoi(line_vector[line_vector.size() - 3]);
-		height = stoi(line_vector[line_vector.size() - 2]);
+		std::cout << line << '\n';
 
-		getline(ifs, line, '\n');
-		line_vector.push_back(line);
+		std::stringstream line_string_stream(line_vector.at(line_vector.size() - 1));
+		std::string height_string, width_string;
+		getline(line_string_stream, height_string, ' ');
+		image::height = stoi(height_string);
+		getline(line_string_stream, width_string, ' ');
+		image::width = stoi(width_string);
+
+		std::cout << height << '\n' << width << '\n';
 
 		skipws(ifs);
 
-
-		image::data.reset(new unsigned char[width * height]);
-		ifs.read((char*)data.get(), width * height);
+		unsigned char* image_data = new unsigned char [height * width];
+		ifs.read((char*)&image_data[0], height * width);
+		data.reset(image_data);
 	}
 
-	std::cout << width << std::endl;
-	std::cout << height << std::endl;
+	ifs.close();
+
 
 }
 
@@ -94,3 +103,7 @@ image::image(){
 image::~image(){
 	data.reset();
 }
+
+// std::ifstream& operator>>(std::ifstream&, image& rhs){
+//
+// }
