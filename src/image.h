@@ -21,7 +21,7 @@ public:
 
 	~image();
 
-	image(const image& lhs);
+	image(const image& rhs);
 
 	image(image&& lhs);
 
@@ -71,7 +71,7 @@ public:
 
 			image_iterator& operator--();
 
-			image_iterator& operator*();
+			unsigned char& operator*();
 
 			bool operator!=(const image_iterator& rhs);
 
