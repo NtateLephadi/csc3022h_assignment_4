@@ -51,13 +51,7 @@ image::image_iterator image::end() const{
 
 void image::save(const std::string& filename){
 	std::ofstream ofs(filename, std::ios::binary);
-
-	ofs << "P5" << '\n';
-	ofs << "# CREATOR: Tumelo Lephadi LPHTUM003 Filter Version 1.1" << '\n';
-	ofs << height << ' ' << width << '\n';
-	ofs << 255 << '\n';
-	ofs.write((char*)&data[0], height*width);
-
+	ofs << *this;
 	ofs.close();
 }
 
@@ -300,4 +294,16 @@ void image::load(const std::string& filename){
 		ifs >> *this;
 		ifs.close();
 	}
+}
+
+std::ofstream& operator<<(std::ofstream& ofs, const image& rhs){
+
+	ofs << "P5" << '\n';
+	ofs << "# CREATOR: LPHTUM003" << '\n';
+	ofs << rhs.height << ' ' << rhs.width << '\n';
+	ofs << 255 << '\n';
+	ofs.write((char*)&rhs.data[0], rhs.height * rhs.width);
+
+	return ofs;
+
 }
