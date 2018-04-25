@@ -43,11 +43,9 @@ public:
 
 	image& operator*(const int threshold);
 
-	bool operator==(image& lhs);
+	friend std::ifstream& operator>>(const std::ifstream& ifs, image& rhs);
 
-	friend std::ifstream& operator>>(const std::ifstream&, image& rhs);
-
-	friend std::ofstream& operator<<(std::ofstream&, const image& rhs);
+	friend std::ofstream& operator<<(std::ofstream& ofs, const image& rhs);
 
 	class image_iterator{
 
@@ -83,8 +81,5 @@ public:
 
 
 };
-
-
-
 
 #endif

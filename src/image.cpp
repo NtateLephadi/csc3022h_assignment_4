@@ -49,44 +49,18 @@ image::image_iterator image::end() const{
 	return image::image_iterator(++endptr);
 }
 
-void image::load(const std::string& filename){
-
-	std::ifstream ifs(filename, std::ios::binary);
-
-
-	if(!ifs){
-		std::cerr << "File open failed!" << std::endl;
-	}
-
-	else{
-		std::string line;
-		std::vector<std::string> line_vector;
-
-		getline(ifs, line);
-
-		if(line.compare("P5") == 0){
-			getline(ifs, line);
-			while(line.compare("255") != 0){
-				line_vector.push_back(line);
-				getline(ifs, line);
-			}
-
-			std::stringstream line_string_stream(line_vector.at(line_vector.size() - 1));
-			std::string height_string, width_string;
-			getline(line_string_stream, height_string, ' ');
-			image::height = stoi(height_string);
-			getline(line_string_stream, width_string, ' ');
-			image::width = stoi(width_string);
-
-			skipws(ifs);
-
-			unsigned char* image_data = new unsigned char [height * width];
-			ifs.read((char*)&image_data[0], height * width);
-			data.reset(image_data);
-			ifs.close();
-		}
-	}
-}
+// void image::load(const std::string& filename){
+//
+// 	std::ifstream ifs(filename, std::ios::binary);
+//
+// 	if(!ifs){
+// 		std::cerr << "File open failed!" << std::endl;
+// 	}
+// 	else{
+// 		ifs >> *this;
+// 		ifs.close();
+// 	}
+// }
 
 void image::save(const std::string& filename){
 	std::ofstream ofs(filename, std::ios::binary);
@@ -295,3 +269,35 @@ image& image::operator*(const int threshold){
 	}
 	return temp;
 }
+
+// std::ifstream& operator>>(const std::ifstream& ifs, image& rhs){
+//
+// 	std::string line;
+// 	std::vector<std::string> line_vector;
+//
+// 	getline(ifs, line);
+//
+// 	if(line.compare("P5") == 0){
+// 		getline(ifs, line);
+// 		while(line.compare("255") != 0){
+// 			line_vector.push_back(line);
+// 			getline(ifs, line);
+// 		}
+//
+// 		std::stringstream line_string_stream(line_vector.at(line_vector.size() - 1));
+// 		std::string height_string, width_string;
+//
+// 		getline(line_string_stream, height_string, ' ');
+// 		image::height = stoi(height_string);
+//
+// 		getline(line_string_stream, width_string, ' ');
+// 		image::width = stoi(width_string);
+//
+// 		skipws(ifs);
+//
+// 		unsigned char* image_data = new unsigned char [height * width];
+// 		ifs.read((char*)&image_data[0], height * width);
+// 		data.reset(image_data);
+// 		return ifs;
+// 	}
+// }
