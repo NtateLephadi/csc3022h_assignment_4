@@ -17,8 +17,6 @@ private:
 
 public:
 
-	image(std::string filename);
-
 	image();
 
 	~image();
@@ -41,7 +39,7 @@ public:
 
 	image& operator/(const image& lhs);
 
-	image& operator!();
+	image operator!();
 
 	image& operator*(const int threshold);
 

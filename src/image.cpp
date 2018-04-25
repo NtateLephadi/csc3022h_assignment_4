@@ -63,35 +63,42 @@ void image::load(const std::string& filename){
 		std::vector<std::string> line_vector;
 
 		getline(ifs, line);
+
 		if(line.compare("P5") == 0){
 			getline(ifs, line);
+
 			while(line.compare("255") != 0){
 				line_vector.push_back(line);
 				getline(ifs, line);
 			}
+
+			std::stringstream line_string_stream(line_vector.at(line_vector.size() - 1));
+			std::string height_string, width_string;
+			getline(line_string_stream, height_string, ' ');
+			image::height = stoi(height_string);
+			getline(line_string_stream, width_string, ' ');
+			image::width = stoi(width_string);
+
+			skipws(ifs);
+
+			unsigned char* image_data = new unsigned char [height * width];
+			ifs.read((char*)&image_data[0], height * width);
+			data.reset(image_data);
+			ifs.close();
 		}
-
-		std::cout << line << '\n';
-
-		std::stringstream line_string_stream(line_vector.at(line_vector.size() - 1));
-		std::string height_string, width_string;
-		getline(line_string_stream, height_string, ' ');
-		image::height = stoi(height_string);
-		getline(line_string_stream, width_string, ' ');
-		image::width = stoi(width_string);
-
-		std::cout << height << '\n' << width << '\n';
-
-		skipws(ifs);
-
-		unsigned char* image_data = new unsigned char [height * width];
-		ifs.read((char*)&image_data[0], height * width);
-		data.reset(image_data);
 	}
+}
 
-	ifs.close();
+void image::save(const std::string& filename){
+	std::ofstream ofs(filename, std::ios::binary);
 
+	ofs << "P5" << '\n';
+	ofs << "# CREATOR: Tumelo Lephadi LPHTUM003 Filter Version 1.1" << '\n';
+	ofs << height << ' ' << width << '\n';
+	ofs << 255 << '\n';
+	ofs.write((char*)&data[0], height*width);
 
+	ofs.close();
 }
 
 image::image(){
@@ -103,6 +110,15 @@ image::image(){
 image::~image(){
 	data.reset();
 }
+
+// image::image(const image& rhs){
+// 	*this->height = rhs.height;
+// 	*this->width = rhs.width;
+//
+// 	image::iterator beg = this->begin(), end = this->end();
+// 	image::iterator inStart = rhs.begin(), inEnd = rhs.end();
+// 	while ( beg != end) { *beg = *inStart; ++beg; ++inStart; }
+// }
 
 // std::ifstream& operator>>(std::ifstream&, image& rhs){
 //
