@@ -39,7 +39,7 @@ public:
 
 	image& operator/(const image& rhs);
 
-	image operator!();
+	image& operator!();
 
 	image& operator*(const int threshold);
 

@@ -263,7 +263,7 @@ image& image::operator/(const image& rhs){
 	return temp;
 }
 
-image image::operator!(){
+image& image::operator!(){
 	auto temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
@@ -271,6 +271,25 @@ image image::operator!(){
 
 	while (beg != end) {
 		*temp_beg = 255 - *beg;
+		++beg;
+		++temp_beg;
+	}
+	return temp;
+}
+
+image& image::operator*(const int threshold){
+	auto temp = *this;
+
+	image::image_iterator beg = this->begin(), end = this->end();
+	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
+
+	while (beg != end) {
+		if(*beg > threshold){
+			*temp_beg = 255;
+		}
+		else{
+			*temp_beg = 0;
+		}
 		++beg;
 		++temp_beg;
 	}
