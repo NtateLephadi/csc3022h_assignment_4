@@ -238,3 +238,27 @@ image& image::operator-(const image& rhs){
 
 	return temp;
 }
+
+image& image::operator/(const image& rhs){
+	auto temp = *this;
+
+	image::image_iterator beg = this->begin(), end = this->end();
+	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
+	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
+
+	while (beg != end) {
+
+		if(*inStart == 255){
+			*temp_beg = *beg;
+		}
+		else{
+			*temp_beg = 0;
+		}
+		++beg;
+		++inStart;
+		++temp_beg;
+
+	}
+
+	return temp;
+}
