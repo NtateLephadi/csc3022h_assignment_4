@@ -1,10 +1,17 @@
 #include "image.h"
 
 int main(int argc, const char* argv[]){
-	image i = image();
-
-	i.load("../pics/shrek_rectangular.pgm");
-	image j(i);
-	j.save("../pics/save.pgm");
+	switch(argv[0][1]){
+		case 'a':
+		break;
+		case 's':
+		break;
+		case 'i':
+		break;
+		case 'l':
+		break;
+		case 't':
+		break;
+	}
 	return 0;
 }

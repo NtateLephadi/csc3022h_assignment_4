@@ -66,7 +66,6 @@ void image::load(const std::string& filename){
 
 		if(line.compare("P5") == 0){
 			getline(ifs, line);
-
 			while(line.compare("255") != 0){
 				line_vector.push_back(line);
 				getline(ifs, line);
@@ -189,4 +188,29 @@ image& image::operator=(image&& rhs){
 		data = nullptr;
 
 		return *this;
+}
+
+image& image::operator+(const image& rhs){
+	auto temp = *this;
+
+	image::image_iterator beg = this->begin(), end = this->end();
+	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
+	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
+
+	while (beg != end) {
+
+		if(*beg+*inStart>255){
+			*temp_beg = 255;
+		}
+		else{
+			*temp_beg = *beg + *inStart;
+		}
+		++beg;
+		++inStart;
+		++temp_beg;
+
+	}
+
+	return temp;
+
 }
