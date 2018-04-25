@@ -2,13 +2,10 @@ TEST = test
 TEST_BIN = test/bin/image_test
 TEST_PICTURES = test/pics
 TEST_SOURCE = src/image.cpp src/image_test.cpp
-
 SOURCE = src/image.cpp src/imageops.cpp
 BIN = $(SOURCE:.cpp=.o)
 PICTURES = pics
-
 EXECUTABLE = imageops
-
 CC = g++
 FLAGS = --std=c++11
 WARNING = -w
@@ -23,7 +20,7 @@ test: $(TEST_SOURCE)
 	$(CC) $(TEST_SOURCE) -o $(TEST_BIN) $(FLAGS) $(WARNING)
 
 run: default
-	cd ./bin && ./$(EXECUTABLE) $(ARGS) $(WARNING)
+	cd ./bin && ./$(EXECUTABLE) $(WARNING)
 
 run_test: test
 	cd ./test/bin && ./image_test

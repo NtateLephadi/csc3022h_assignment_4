@@ -33,15 +33,15 @@ public:
 
 	image& operator=(image&& rhs);
 
-	image& operator+(const image& rhs);
+	image operator+(const image& rhs);
 
-	image& operator-(const image& rhs);
+	image operator-(const image& rhs);
 
-	image& operator/(const image& rhs);
+	image operator/(const image& rhs);
 
-	image& operator!();
+	image operator!();
 
-	image& operator*(const int threshold);
+	image operator*(const int threshold);
 
 	friend std::ifstream& operator>>(std::ifstream& ifs, image& rhs);
 

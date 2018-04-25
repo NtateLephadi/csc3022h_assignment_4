@@ -145,15 +145,14 @@ image& image::operator=(image&& rhs){
 		return *this;
 }
 
-image& image::operator+(const image& rhs){
-	auto temp = *this;
+image image::operator+(const image& rhs){
+	image temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
 
-	while (beg != end) {
-
+	while (inStart != inEnd) {
 		if(*beg + *inStart > 255){
 			*temp_beg = 255;
 		}
@@ -163,14 +162,12 @@ image& image::operator+(const image& rhs){
 		++beg;
 		++inStart;
 		++temp_beg;
-
 	}
-
 	return temp;
 
 }
 
-image& image::operator-(const image& rhs){
+image image::operator-(const image& rhs){
 	auto temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
@@ -194,7 +191,7 @@ image& image::operator-(const image& rhs){
 	return temp;
 }
 
-image& image::operator/(const image& rhs){
+image image::operator/(const image& rhs){
 	auto temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
@@ -218,7 +215,7 @@ image& image::operator/(const image& rhs){
 	return temp;
 }
 
-image& image::operator!(){
+image image::operator!(){
 	auto temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
@@ -232,7 +229,7 @@ image& image::operator!(){
 	return temp;
 }
 
-image& image::operator*(const int threshold){
+image image::operator*(const int threshold){
 	auto temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
@@ -303,6 +300,7 @@ std::ofstream& operator<<(std::ofstream& ofs, const image& rhs){
 	ofs << rhs.height << ' ' << rhs.width << '\n';
 	ofs << 255 << '\n';
 	ofs.write((char*)&rhs.data[0], rhs.height * rhs.width);
+	std::cout << rhs.height * rhs.width << '\n';
 
 	return ofs;
 
