@@ -199,7 +199,7 @@ image& image::operator+(const image& rhs){
 
 	while (beg != end) {
 
-		if(*beg+*inStart>255){
+		if(*beg + *inStart > 255){
 			*temp_beg = 255;
 		}
 		else{
@@ -213,4 +213,28 @@ image& image::operator+(const image& rhs){
 
 	return temp;
 
+}
+
+image& image::operator-(const image& rhs){
+	auto temp = *this;
+
+	image::image_iterator beg = this->begin(), end = this->end();
+	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
+	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
+
+	while (beg != end) {
+
+		if(*beg - *inStart < 0){
+			*temp_beg = 0;
+		}
+		else{
+			*temp_beg = *beg - *inStart;
+		}
+		++beg;
+		++inStart;
+		++temp_beg;
+
+	}
+
+	return temp;
 }
