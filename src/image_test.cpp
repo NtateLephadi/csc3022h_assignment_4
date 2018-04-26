@@ -1,8 +1,17 @@
 #define CATCH_CONFIG_MAIN
 #include "image.h"
 
-TEST_CASE( "image_iterator default constructor", "[image_iterator(unsigned char)]" ){
-	image::image_iterator i_itr = image::image_iterator(0);
-	REQUIRE(i_itr.ptr  == 0);
-	REQUIRE(i1.getWidth() == 0);
+TEST_CASE( "image()" ){
+	image i = image();
+	REQUIRE(i.getWidth() == 0);
+	REQUIRE(i.getHeight() == 0);
+	REQUIRE(i.getData() == nullptr);
+}
+
+TEST_CASE("image(const image& rhs);"){
+	image i1;
+	i1.load("../test/pics/shrek_rectangular.pgm");
+	image i2(i1);
+	REQUIRE(i1.getWidth() == i2.getWidth());
+	REQUIRE(i1.getHeight() == i2.getHeight());
 }

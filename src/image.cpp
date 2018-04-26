@@ -12,7 +12,7 @@ image::image_iterator::image_iterator(const image_iterator& rhs){
 	this->ptr = rhs.ptr;
 }
 
-image::image_iterator image::image_iterator::operator=(const image_iterator& rhs){
+image::image_iterator& image::image_iterator::operator=(const image_iterator& rhs){
 	if(*this != rhs){
 		return *this;
 	}
@@ -26,12 +26,12 @@ bool image::image_iterator::operator!=(const image_iterator& rhs){
 		return (!(this->ptr == rhs.ptr));
 }
 
-image::image_iterator& image::image_iterator::operator++(){
+image::image_iterator image::image_iterator::operator++(){
 	++this->ptr;
 	return *this;
 }
 
-image::image_iterator& image::image_iterator::operator--(){
+image::image_iterator image::image_iterator::operator--(){
 	--this->ptr;
 	return *this;
 }
@@ -41,18 +41,12 @@ unsigned char& image::image_iterator::operator*(){
 }
 
 image::image_iterator image::begin() const{
-	return data.get();
+	return image::image_iterator(data.get());
 }
 
 image::image_iterator image::end() const{
 	unsigned char* endptr = &data[image::height * image::width - 1];
 	return image::image_iterator(++endptr);
-}
-
-void image::save(const std::string& filename){
-	std::ofstream ofs(filename, std::ios::binary);
-	ofs << *this;
-	ofs.close();
 }
 
 image::image(){
@@ -152,7 +146,7 @@ image image::operator+(const image& rhs){
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
 
-	while (inStart != inEnd) {
+	while (beg != end) {
 		if(*beg + *inStart > 255){
 			*temp_beg = 255;
 		}
@@ -168,7 +162,7 @@ image image::operator+(const image& rhs){
 }
 
 image image::operator-(const image& rhs){
-	auto temp = *this;
+	image temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
@@ -192,7 +186,7 @@ image image::operator-(const image& rhs){
 }
 
 image image::operator/(const image& rhs){
-	auto temp = *this;
+	image temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
@@ -216,7 +210,7 @@ image image::operator/(const image& rhs){
 }
 
 image image::operator!(){
-	auto temp = *this;
+	image temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
@@ -229,8 +223,8 @@ image image::operator!(){
 	return temp;
 }
 
-image image::operator*(const int threshold){
-	auto temp = *this;
+image image::operator*(const int& threshold){
+	image temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
@@ -300,8 +294,13 @@ std::ofstream& operator<<(std::ofstream& ofs, const image& rhs){
 	ofs << rhs.height << ' ' << rhs.width << '\n';
 	ofs << 255 << '\n';
 	ofs.write((char*)&rhs.data[0], rhs.height * rhs.width);
-	std::cout << rhs.height * rhs.width << '\n';
 
 	return ofs;
 
+}
+
+void image::save(const std::string& filename){
+	std::ofstream ofs(filename, std::ios::binary);
+	ofs << *this;
+	ofs.close();
 }

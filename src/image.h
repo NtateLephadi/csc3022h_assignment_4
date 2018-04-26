@@ -41,7 +41,7 @@ public:
 
 	image operator!();
 
-	image operator*(const int threshold);
+	image operator*(const int& threshold);
 
 	friend std::ifstream& operator>>(std::ifstream& ifs, image& rhs);
 
@@ -63,11 +63,11 @@ public:
 
 			friend class image;
 
-			image_iterator operator=(const image_iterator& rhs);
+			image_iterator& operator=(const image_iterator& rhs);
 
-			image_iterator& operator++();
+			image_iterator operator++();
 
-			image_iterator& operator--();
+			image_iterator operator--();
 
 			unsigned char& operator*();
 
@@ -78,6 +78,18 @@ public:
 	image_iterator end() const;
 
 	image_iterator begin() const;
+
+	int& getHeight(){
+		return height;
+	}
+
+	int& getWidth(){
+		return width;
+	}
+
+	std::unique_ptr<unsigned char[]>& getData(){
+		return data;
+	}
 
 
 };
