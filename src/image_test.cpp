@@ -29,3 +29,11 @@ TEST_CASE("image(image&& rhs)"){
 	REQUIRE(i2.getWidth() == 1207);
 	REQUIRE(i2.getHeight() == 1280);
 }
+
+TEST_CASE("void load(const std::string& filename)"){
+	image i1;
+	i1.load("../pics/shrek_rectangular.pgm");
+
+	REQUIRE(i1.getWidth() == 1207);
+	REQUIRE(i1.getHeight() == 1280);
+}
