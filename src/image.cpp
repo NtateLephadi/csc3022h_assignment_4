@@ -106,8 +106,8 @@ image& image::operator=(const image& rhs){
 
 		image::image_iterator beg = this->begin(), end = this->end();
 		image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
-		while (beg != end) {
 
+		while (beg != end) {
 			*beg = *inStart;
 			++beg;
 			++inStart;
@@ -125,8 +125,8 @@ image& image::operator=(image&& rhs){
 
 		image::image_iterator beg = this->begin(), end = this->end();
 		image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
-		while (beg != end) {
 
+		while (beg != end) {
 			*beg = *inStart;
 			++beg;
 			++inStart;
@@ -140,6 +140,7 @@ image& image::operator=(image&& rhs){
 }
 
 image image::operator+(const image& rhs){
+
 	image temp = *this;
 
 	image::image_iterator beg = this->begin(), end = this->end();
@@ -147,7 +148,7 @@ image image::operator+(const image& rhs){
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
 
 	while (beg != end) {
-		if(*beg + *inStart > 255){
+		if(*beg + *inStart >= 255){
 			*temp_beg = 255;
 		}
 		else{
@@ -157,8 +158,8 @@ image image::operator+(const image& rhs){
 		++inStart;
 		++temp_beg;
 	}
-	return temp;
 
+	return temp;
 }
 
 image image::operator-(const image& rhs){
@@ -293,6 +294,7 @@ std::ofstream& operator<<(std::ofstream& ofs, const image& rhs){
 	ofs << "# CREATOR: LPHTUM003" << '\n';
 	ofs << rhs.height << ' ' << rhs.width << '\n';
 	ofs << 255 << '\n';
+
 	ofs.write((char*)&rhs.data[0], rhs.height * rhs.width);
 
 	return ofs;

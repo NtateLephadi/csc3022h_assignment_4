@@ -65,3 +65,11 @@ TEST_CASE("image& operator=(image&& rhs)"){
 	REQUIRE(i2.getWidth() == 1207);
 	REQUIRE(i2.getHeight() == 1280);
 }
+
+TEST_CASE("image operator+(const image& rhs);"){
+	image i1, i2, i3;
+	i1.load("../pics/shrek_rectangular.pgm");
+	i2.load("../pics/donkey_mask.pgm");
+
+	i3 = i1 + i2;
+}
