@@ -147,19 +147,23 @@ image image::operator+(const image& rhs){
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
 
-	while (beg != end) {
-		if(*beg + *inStart >= 255){
-			*temp_beg = 255;
+	if(this->height == rhs.height && this->width == rhs.width){
+		while (beg != end) {
+			if(*beg + *inStart >= 255){
+				*temp_beg = 255;
+			}
+			else{
+				*temp_beg = *beg + *inStart;
+			}
+			++beg;
+			++inStart;
+			++temp_beg;
 		}
-		else{
-			*temp_beg = *beg + *inStart;
-		}
-		++beg;
-		++inStart;
-		++temp_beg;
+		return temp;
 	}
-
-	return temp;
+	else{
+		std::cout << "Images have different dimensions" << '\n';
+	}
 }
 
 image image::operator-(const image& rhs){
@@ -169,21 +173,23 @@ image image::operator-(const image& rhs){
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
 
-	while (beg != end) {
-
-		if(*beg - *inStart < 0){
-			*temp_beg = 0;
+	if(this->height == rhs.height && this->width == rhs.width){
+		while (beg != end) {
+			if(*beg - *inStart < 0){
+				*temp_beg = 0;
+			}
+			else{
+				*temp_beg = *beg - *inStart;
+			}
+			++beg;
+			++inStart;
+			++temp_beg;
 		}
-		else{
-			*temp_beg = *beg - *inStart;
-		}
-		++beg;
-		++inStart;
-		++temp_beg;
-
+		return temp;
 	}
-
-	return temp;
+	else{
+		std::cout << "Images have different dimensions" << '\n';
+	}
 }
 
 image image::operator/(const image& rhs){
@@ -193,21 +199,25 @@ image image::operator/(const image& rhs){
 	image::image_iterator inStart = rhs.begin(), inEnd = rhs.end();
 	image::image_iterator temp_beg = temp.begin(), temp_end = temp.end();
 
-	while (beg != end) {
+	if(this->height == rhs.height && this->width == rhs.width){
+		while (beg != end) {
 
-		if(*inStart == 255){
-			*temp_beg = *beg;
-		}
-		else{
-			*temp_beg = 0;
-		}
-		++beg;
-		++inStart;
-		++temp_beg;
+			if(*inStart == 255){
+				*temp_beg = *beg;
+			}
+			else{
+				*temp_beg = 0;
+			}
+			++beg;
+			++inStart;
+			++temp_beg;
 
+		}
+		return temp;
 	}
-
-	return temp;
+	else{
+		std::cout << "Images have different dimensions" << '\n';
+	}
 }
 
 image image::operator!(){
@@ -242,6 +252,18 @@ image image::operator*(const int& threshold){
 	}
 	return temp;
 }
+
+// image image::operator%(const std::string filename){
+//
+// 	std::ofstream ofs(filename, std::ios::binary);
+//
+// 	ofs >> image::filter.N;
+//
+// 	std::cout << image::filter.N << '\n';
+//
+// 	ofs.close();
+//
+// }
 
 std::ifstream& operator>>(std::ifstream& ifs, image& rhs){
 

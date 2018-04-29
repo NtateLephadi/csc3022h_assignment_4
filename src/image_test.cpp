@@ -67,9 +67,7 @@ TEST_CASE("image& operator=(image&& rhs)"){
 }
 
 TEST_CASE("image operator+(const image& rhs);"){
-	image i1, i2, i3;
+	image i1, i2;
 	i1.load("../pics/shrek_rectangular.pgm");
 	i2.load("../pics/donkey_mask.pgm");
-
-	i3 = i1 + i2;
 }

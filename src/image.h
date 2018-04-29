@@ -39,6 +39,8 @@ public:
 
 	image operator/(const image& rhs);
 
+	image operator%(const std::string& filename);
+
 	image operator!();
 
 	image operator*(const int& threshold);
@@ -91,6 +93,11 @@ public:
 		return data;
 	}
 
+	struct filter{
+		friend class image;
+		int N;
+		float* float_ptr[];
+	}image_filter;
 
 };
 

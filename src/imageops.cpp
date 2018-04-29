@@ -16,7 +16,7 @@ int main(int argc, const char* argv[]){
 			(i1 - i2).save(argv[4]);
 		break;
 		case 'i':
-			i1.load(argv[1]);
+			i1.load(argv[2]);
 			(!(i1)).save(argv[3]);
 		break;
 		case 'l':
