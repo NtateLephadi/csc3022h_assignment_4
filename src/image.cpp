@@ -55,6 +55,19 @@ image::image(){
 	data = nullptr;
 }
 
+image::image(int width, int height, unsigned char* holder){
+	this->width = width;
+	this->height = height;
+
+	unsigned char* data = new unsigned char[width*height];
+
+	for(int i = 0; i < width * height; ++i){
+		data[i] = holder[i];
+	}
+
+	this->data.reset(data);
+}
+
 image::~image(){
 	data.reset();
 }
@@ -252,18 +265,6 @@ image image::operator*(const int& threshold){
 	}
 	return temp;
 }
-
-// image image::operator%(const std::string filename){
-//
-// 	std::ofstream ofs(filename, std::ios::binary);
-//
-// 	ofs >> image::filter.N;
-//
-// 	std::cout << image::filter.N << '\n';
-//
-// 	ofs.close();
-//
-// }
 
 std::ifstream& operator>>(std::ifstream& ifs, image& rhs){
 

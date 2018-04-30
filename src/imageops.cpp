@@ -3,7 +3,7 @@
 int main(int argc, const char* argv[]){
 
 	image i1, i2;
-
+	std::cout << (argv[1][1]) << '\n';
 	switch(argv[1][1]){
 		case 'a':
 			i1.load(argv[2]);

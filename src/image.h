@@ -19,6 +19,8 @@ public:
 
 	image();
 
+	image(int width, int height, unsigned char* data);
+
 	~image();
 
 	image(const image& rhs);
@@ -39,11 +41,11 @@ public:
 
 	image operator/(const image& rhs);
 
-	image operator%(const std::string& filename);
-
 	image operator!();
 
 	image operator*(const int& threshold);
+
+	image operator%(const std::string filename);
 
 	friend std::ifstream& operator>>(std::ifstream& ifs, image& rhs);
 
@@ -96,7 +98,7 @@ public:
 	struct filter{
 		friend class image;
 		int N;
-		float* float_ptr[];
+		float** values;
 	}image_filter;
 
 };
