@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "image_filter.h"
 
 #ifndef IMAGE_H_
 #define IMAGE_H_
@@ -44,6 +45,8 @@ public:
 	image operator!();
 
 	image operator*(const int& threshold);
+
+	image operator%(image_filter filter);
 
 	friend std::ifstream& operator>>(std::ifstream& ifs, image& rhs);
 

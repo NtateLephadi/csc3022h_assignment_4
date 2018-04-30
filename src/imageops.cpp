@@ -4,6 +4,7 @@ int main(int argc, const char* argv[]){
 
 // make instances of images
 	image i1, i2;
+	image_filter filter;
 	// open various options for the different operations
 	switch(argv[1][1]){
 		case 'a':
@@ -28,6 +29,11 @@ int main(int argc, const char* argv[]){
 		case 't':
 			i1.load(argv[2]);
 			(i1 * atoi(argv[3])).save(argv[4]);
+		break;
+		case 'f':
+			i1.load(argv[2]);
+			filter.load(argv[3]);
+			(i1 % filter).save(argv[4]);
 		break;
 		default:
 			std::cout << "Unexpected input format" << '\n';

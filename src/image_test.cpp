@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "image.h"
+#include "image_filter.h"
 
 TEST_CASE( "image()" ){
 	image i = image();
@@ -151,4 +152,21 @@ TEST_CASE("image operator*(const int& threshold)"){
 	REQUIRE((i1 * 100).getData()[1] == 0);
 	REQUIRE((i1 * 100).getData()[2] == 0);
 	REQUIRE((i1 * 100).getData()[3] == 0);
+}
+
+TEST_CASE("void load(std::string filename)"){
+	image_filter filter;
+	filter.load("../sample_filters/all_dir_edge_detect.fir");
+	REQUIRE(filter.getN() == 3);
+
+	REQUIRE(filter.getData(0, 0) == -1);
+	REQUIRE(filter.getData(0, 1) == -1);
+	REQUIRE(filter.getData(0, 2) == -1);
+	REQUIRE(filter.getData(1, 0) == -1);
+	REQUIRE(filter.getData(1, 1) == 8);
+	REQUIRE(filter.getData(1, 2) == -1);
+	REQUIRE(filter.getData(2, 0) == -1);
+	REQUIRE(filter.getData(2, 1) == -1);
+	REQUIRE(filter.getData(2, 2) == -1);
+
 }

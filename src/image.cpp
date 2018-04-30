@@ -355,3 +355,12 @@ void image::save(const std::string& filename){
 	ofs << *this;
 	ofs.close();
 }
+
+image image::operator%(image_filter filter){
+	float sum;
+	for (int i = 0; i < filter.getN(); ++i){
+		for(int j = 0; j < filter.getN(); ++j){
+			std::cout << filter.getData(i, j) << '\n';
+		}
+	}
+}
