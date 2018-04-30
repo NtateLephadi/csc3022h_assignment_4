@@ -1,0 +1,48 @@
+image.h
+
+A header file that declares all methods and attributes associated with an image
+
+image.cpp
+
+A source file that defines all the methods and attributes associated with an imageops
+
+class image_iterator
+
+is an iterator traverses an image
+
+imageops.cpp
+
+A driver class that implements all the image operations
+
+LINKING imageops
+
+in the csc3022h_assignment_4 path input "make" on the terminal
+
+RUNNING imageops
+
+input is in the following format at the bin folder
+
+./imageops <options> outputFilename
+
+***
+when giving a filename insert a directory that points to a single image at a
+time including the images extension. images which are not of the specified
+format and equal dimensions will not be operated on and will be returned
+unchanged with the specified outputFilename.
+***
+
+e.g.
+
+in the bin folder run the following command on the terminal.
+
+./imageops -a ../pics/Lenna_standard.pgm ../pics/Lenna_hat_mask.pgm ../pics/Lenna_add.pgm
+
+./imageops -i ../pics/Lenna_standard.pgm ../pics/Lenna_invert.pgm
+
+image_test.cpp
+
+A source file that tests all operations of an image
+
+RUNNING image_test
+
+in the csc3022h_assignment_4 path input "make run_test" on the terminal

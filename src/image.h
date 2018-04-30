@@ -45,8 +45,6 @@ public:
 
 	image operator*(const int& threshold);
 
-	image operator%(const std::string filename);
-
 	friend std::ifstream& operator>>(std::ifstream& ifs, image& rhs);
 
 	friend std::ofstream& operator<<(std::ofstream& ofs, const image& rhs);
@@ -94,12 +92,6 @@ public:
 	std::unique_ptr<unsigned char[]>& getData(){
 		return data;
 	}
-
-	struct filter{
-		friend class image;
-		int N;
-		float** values;
-	}image_filter;
 
 };
 

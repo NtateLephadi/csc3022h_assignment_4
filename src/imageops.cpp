@@ -2,8 +2,9 @@
 
 int main(int argc, const char* argv[]){
 
+// make instances of images
 	image i1, i2;
-	std::cout << (argv[1][1]) << '\n';
+	// open various options for the different operations
 	switch(argv[1][1]){
 		case 'a':
 			i1.load(argv[2]);

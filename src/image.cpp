@@ -1,17 +1,21 @@
 #include "image.h"
 
+// custom iterator constructor
 image::image_iterator::image_iterator(unsigned char *ptr){
 	image_iterator::ptr = ptr;
 }
 
+// default iterator constructor
 image::image_iterator::image_iterator(){
 	image_iterator::ptr = nullptr;
 }
 
+// copy constructor
 image::image_iterator::image_iterator(const image_iterator& rhs){
 	this->ptr = rhs.ptr;
 }
 
+// copy assignment operator
 image::image_iterator& image::image_iterator::operator=(const image_iterator& rhs){
 	if(*this != rhs){
 		return *this;
@@ -22,39 +26,47 @@ image::image_iterator& image::image_iterator::operator=(const image_iterator& rh
 	return *this;
 }
 
+// not equal test of iterators
 bool image::image_iterator::operator!=(const image_iterator& rhs){
 		return (!(this->ptr == rhs.ptr));
 }
 
+// prefix addition
 image::image_iterator image::image_iterator::operator++(){
 	++this->ptr;
 	return *this;
 }
 
+// prefix subtraction
 image::image_iterator image::image_iterator::operator--(){
 	--this->ptr;
 	return *this;
 }
 
+// *operator returns char
 unsigned char& image::image_iterator::operator*(){
 	return *ptr;
 }
 
+// return address of first char
 image::image_iterator image::begin() const{
 	return image::image_iterator(data.get());
 }
 
+// return address of one position after last index
 image::image_iterator image::end() const{
 	unsigned char* endptr = &data[image::height * image::width - 1];
 	return image::image_iterator(++endptr);
 }
 
+// default image constructor
 image::image(){
 	height = 0;
 	width = 0;
 	data = nullptr;
 }
 
+// custom image constructor
 image::image(int width, int height, unsigned char* holder){
 	this->width = width;
 	this->height = height;
@@ -68,10 +80,12 @@ image::image(int width, int height, unsigned char* holder){
 	this->data.reset(data);
 }
 
+// image destructor
 image::~image(){
 	data.reset();
 }
 
+// image copy constructor
 image::image(const image& rhs){
 
 	this->height = rhs.height;
@@ -89,6 +103,7 @@ image::image(const image& rhs){
 	}
 }
 
+// image move constructor
 image::image(image&& rhs){
 
 	this->height = rhs.height;
@@ -110,6 +125,7 @@ image::image(image&& rhs){
 	data = nullptr;
 }
 
+// image copy assignment operator
 image& image::operator=(const image& rhs){
 
 		this->height = rhs.height;
@@ -129,6 +145,7 @@ image& image::operator=(const image& rhs){
 		return *this;
 }
 
+// image move assignment operator
 image& image::operator=(image&& rhs){
 
 		this->height = rhs.height;
@@ -152,6 +169,7 @@ image& image::operator=(image&& rhs){
 		return *this;
 }
 
+// add pixels of 2 images
 image image::operator+(const image& rhs){
 
 	image temp = *this;
@@ -179,6 +197,7 @@ image image::operator+(const image& rhs){
 	}
 }
 
+// subtract pixels of 2 images
 image image::operator-(const image& rhs){
 	image temp = *this;
 
@@ -205,6 +224,7 @@ image image::operator-(const image& rhs){
 	}
 }
 
+// mask 1 image with another image
 image image::operator/(const image& rhs){
 	image temp = *this;
 
@@ -233,6 +253,7 @@ image image::operator/(const image& rhs){
 	}
 }
 
+// invert an image
 image image::operator!(){
 	image temp = *this;
 
@@ -247,6 +268,7 @@ image image::operator!(){
 	return temp;
 }
 
+// image threshold operator
 image image::operator*(const int& threshold){
 	image temp = *this;
 
@@ -266,6 +288,7 @@ image image::operator*(const int& threshold){
 	return temp;
 }
 
+// get data from pgm file
 std::ifstream& operator>>(std::ifstream& ifs, image& rhs){
 
 	std::string line;
@@ -298,6 +321,7 @@ std::ifstream& operator>>(std::ifstream& ifs, image& rhs){
 	}
 }
 
+// create ifstream
 void image::load(const std::string& filename){
 
 	std::ifstream ifs(filename, std::ios::binary);
@@ -311,6 +335,7 @@ void image::load(const std::string& filename){
 	}
 }
 
+// create ofstream
 std::ofstream& operator<<(std::ofstream& ofs, const image& rhs){
 
 	ofs << "P5" << '\n';
@@ -324,6 +349,7 @@ std::ofstream& operator<<(std::ofstream& ofs, const image& rhs){
 
 }
 
+// write into a pgm file data in an image
 void image::save(const std::string& filename){
 	std::ofstream ofs(filename, std::ios::binary);
 	ofs << *this;
